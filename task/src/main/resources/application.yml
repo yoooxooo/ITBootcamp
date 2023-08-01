@@ -1,0 +1,34 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
+    url: ${MYSQL_URL}
+
+  jpa:
+    properties:
+      hibernate:
+        default_schema: users
+    hibernate:
+      ddl-auto: none
+
+configuration:
+  name: Default
+  appenders:
+    Console:
+      PatternLayout:
+        pattern: '[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n'
+      name: Console-Appender
+      target: SYSTEM_OUT
+  loggers:
+    logger:
+      additivity: 'false'
+      appender-ref:
+        - level: debug
+          ref: Console-Appender
+      level: debug
+
+    root:
+      appender-ref:
+        ref: Console-Appender
+      level: debug

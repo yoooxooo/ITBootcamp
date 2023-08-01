@@ -1,0 +1,27 @@
+version: '3.5'
+services:
+  db:
+    build: mysql
+    image: mysql:1.0.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root1
+    networks:
+      - test_ntwrk
+  user-service:
+    build: task
+    image: task_users-1.0.0
+    restart: always
+    environment:
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: root1
+      MYSQL_URL: jdbc:mysql://db:3306/Users
+    networks:
+      - test_ntwrk
+    depends_on: 
+      - db
+    ports:
+      - "80:8080"
+networks:
+    test_ntwrk:
+      name: test_ntwrk
